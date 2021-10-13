@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { ReactNode, useRef } from 'react';
 
 // Styles
 import { TableContainer, StyledTable, NoResultsMessage } from './Table.style';
@@ -28,11 +28,40 @@ const sortDown = (
   </svg>
 );
 
+// Typescript
+// -- interfaces
+interface Rocket {
+  id: number;
+  rocket_name: string;
+  diameter: {
+    meters: number;
+  };
+  height: {
+    meters: number;
+  };
+  mass: {
+    kg: number;
+  };
+  cost_per_launch: number;
+}
+
+interface Props {
+  displayRockets: Rocket[];
+  setDisplayRockets: (rockets: Rocket[]) => void;
+}
+
+// -- types
+type sortBy = string;
+
 // COMPONENT
-export const Table: React.FC = ({ displayRockets, setDisplayRockets }) => {
+export const Table: React.FC<Props> = ({
+  displayRockets,
+  setDisplayRockets,
+}) => {
   // -- custom funtions
-  const sortRockets = (sortBy) => {
-    let sortedRockets;
+
+  const sortRockets = (sortBy: sortBy) => {
+    let sortedRockets = displayRockets;
 
     switch (sortBy) {
       case 'diameter': {

@@ -1,18 +1,38 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const useFetch = (endpoint) => {
+// Typescript
+// -- interface
+interface Rocket {
+  rocket_name: string;
+  diameter: {
+    meters: number;
+  };
+  height: {
+    meters: number;
+  };
+  mass: {
+    kg: number;
+  };
+  cost_per_launch: number;
+}
+
+interface Response {
+  data: any;
+}
+
+const useFetch = (endpoint: string) => {
   // Hooks
   // -- state
-  const [data, setData] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [data, setData] = useState<Rocket[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>('');
 
   // -- side effects
   useEffect(() => {
     axios
       .get(endpoint)
-      .then((data) => {
+      .then((data: Response) => {
         setData(data.data);
         setIsLoading(false);
       })

@@ -22,8 +22,30 @@ const searchIcon = (
   </svg>
 );
 
+// Typescript
+// -- interfaces
+interface Rocket {
+  rocket_name: string;
+  diameter: {
+    meters: number;
+  };
+  height: {
+    meters: number;
+  };
+  mass: {
+    kg: number;
+  };
+  cost_per_launch: number;
+}
+
+interface Props {
+  AllRockets: Rocket[];
+  results: number | null;
+  setDisplayRockets: (rockets: Rocket[]) => void;
+}
+
 // COMPONENT
-export const Search: React.FC = ({
+export const Search: React.FC<Props> = ({
   AllRockets,
   results,
   setDisplayRockets,
@@ -32,7 +54,7 @@ export const Search: React.FC = ({
   const [searchValue, setSearchValue] = useState('');
 
   // -- custom funtions
-  const filterRockets = (e) => {
+  const filterRockets = (e: { target: { value: string } }) => {
     const inputValue = e.target.value;
     setSearchValue(inputValue);
 
@@ -73,7 +95,7 @@ export const Search: React.FC = ({
         <Input
           placeholder='Search'
           value={searchValue}
-          onChange={(e) => filterRockets(e)}
+          onChange={(e: { target: { value: string } }) => filterRockets(e)}
         />
       </InputContainer>
     </SearchContainer>

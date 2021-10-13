@@ -8,10 +8,26 @@ import { FilterWrapper, FilterContainer } from './Filter.style';
 import { Search } from '../search/Search';
 import { Table } from '../table/Table';
 
+// Typescript
+// -- interfaces
+interface Rocket {
+  rocket_name: string;
+  diameter: {
+    meters: number;
+  };
+  height: {
+    meters: number;
+  };
+  mass: {
+    kg: number;
+  };
+  cost_per_launch: number;
+}
+
 // COMPONENT
 export const Filter: React.FC = () => {
   // -- state
-  const [displayRockets, setDisplayRockets] = useState();
+  const [displayRockets, setDisplayRockets] = useState<Rocket[]>([]);
 
   const { data, isLoading, error } = useFetch(
     'https://api.spacexdata.com/v3/rockets'
@@ -32,7 +48,7 @@ export const Filter: React.FC = () => {
         ) : (
           <>
             <Search
-              results={displayRockets.length}
+              results={displayRockets ? displayRockets.length : 0}
               AllRockets={data}
               setDisplayRockets={setDisplayRockets}
             />
