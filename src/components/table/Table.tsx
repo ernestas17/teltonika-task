@@ -31,7 +31,7 @@ const sortDown = (
 // Typescript
 // -- interfaces
 interface Rocket {
-  id: number;
+  id?: number;
   rocket_name: string;
   diameter: {
     meters: number;
